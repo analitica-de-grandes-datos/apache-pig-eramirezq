@@ -21,4 +21,9 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',');
 
+a= FOREACH lines GENERATE $1, $4;
+b= FILTER a BY $1 == 'blue' OR $1 == 'green';
+
+STORE b INTO 'output' USING PigStorage(',');
