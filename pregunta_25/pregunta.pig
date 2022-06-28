@@ -19,4 +19,9 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',') AS (f1:int,nombre:chararray,apellido:chararray,fecha:chararray,color:chararray,id:int);
 
+a= FOREACH lines GENERATE INDEXOF(nombre, 'a', 1);
+
+
+STORE a INTO 'output' USING PigStorage(',');

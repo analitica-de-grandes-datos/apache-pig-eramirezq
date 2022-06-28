@@ -20,4 +20,11 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',');
 
+a= FOREACH lines GENERATE $2, SIZE($2);
+
+ordered = ORDER a BY $1 desc, $0 asc;
+first= LIMIT ordered 5;
+
+STORE first INTO 'output' USING PigStorage(',');

@@ -26,4 +26,10 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',');
+
+a= FOREACH lines GENERATE $2;
+b= FILTER a BY $0 MATCHES '.*^[d-kD-K].*';
+
+STORE b INTO 'output';
 
