@@ -19,4 +19,9 @@ evaluación, pig sera eejcutado ejecutado en modo local:
 $ pig -x local -f pregunta.pig
 
 */
+lines = LOAD 'data.csv' USING PigStorage(',');
 
+a= FOREACH lines GENERATE $1,$4;
+b= FILTER a BY $0 MATCHES '.*^[zZ].*' AND $1 == 'blue';
+
+STORE b INTO 'output' USING PigStorage(' ');
